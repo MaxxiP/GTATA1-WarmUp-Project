@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.GTATA1-Warmup-SoSe21.iml
+/modules.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Unity\Unity Projects\GTATA1\Abgabe1\GTATA1-Warmup-SoSe21\.idea\.idea.GTATA1-Warmup-SoSe21\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
