@@ -765,7 +765,6 @@ GameObject:
   - component: {fileID: 1493469878}
   - component: {fileID: 1493469881}
   - component: {fileID: 1493469883}
-  - component: {fileID: 1493469884}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -900,22 +899,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserPrefab: {fileID: 3877385637195432441, guid: 90cf3b4d06e7d8f458d03e19e0dac9d7, type: 3}
---- !u!58 &1493469884
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493469877}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0028539905, y: 0.14270513}
-  serializedVersion: 2
-  m_Radius: 0.37
 --- !u!1 &1506310504
 GameObject:
   m_ObjectHideFlags: 0
