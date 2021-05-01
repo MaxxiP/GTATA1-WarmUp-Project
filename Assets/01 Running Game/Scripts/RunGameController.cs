@@ -30,7 +30,7 @@ namespace Scripts
         /// Public interface to indicate the start of a game
         /// </summary>
         public void StartGame()
-        {
+        { 
             // Since the buttons for selecting a sprite were still in focus when the game started
             // This method will reset the focus so the click wont get fired
             EventSystem.current.SetSelectedGameObject(null);

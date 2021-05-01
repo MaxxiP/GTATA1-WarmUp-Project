@@ -20,8 +20,9 @@ namespace Scripts
 
         [SerializeField] public AudioSource walkingSound;
         [SerializeField] public AudioSource jumpSound;
+        public AudioSource audioSource;
         
-        public AudioClip[] walkingSounds;
+        public AudioClip[] characterSounds;
         
         // Animations
         private const string IDLE = "alienBlueIdle";
@@ -51,10 +52,15 @@ namespace Scripts
         
         private bool canJump = true;
 
-        private bool isPlaying;
+        private bool /*isRunning, isDead,*/ isInAir;
 
         public void Start()
         {
+            // Condition not really worked out yet
+            //isDead = false;
+            //isRunning = true;
+            isInAir = false;
+            
             
             animator = characterAnimator.GetComponent<Animator>();
             walkingSound = GetComponent<AudioSource>();
@@ -69,30 +75,39 @@ namespace Scripts
             // Start the walking animation if the game hasStarted is true
             if (gameManager.hasStarted && canJump)
             {
+                isInAir = false;
                 ChangeAnimation(RUN);
 
-                if (!isPlaying)
+                if (!audioSource.isPlaying)
                 {
-                    isPlaying = true;
-                    walkingSound.Play();
-                    
-                }else if (isPlaying)
-                {
-                    isPlaying = false;
-                    walkingSound.Stop();
+                    audioSource.PlayOneShot(characterSounds[0], 0.5f);
                 }
-
-                
             }
             else if (!canJump)
             {
                 ChangeAnimation(JUMP);
+
+
+                if (!isInAir && !audioSource.isPlaying)
+                {
+                    isInAir = true;
+                    audioSource.PlayOneShot(characterSounds[1], 0.5f);
+
+                }
             }
             
             // Iff collidied is true, the player died, play death anim
             if (gameManager.collided)
             {
                 ChangeAnimation(DEATH);
+                
+                // logic not implemented yet
+                /*
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(characterSounds[2], 0.5f);
+                }
+                */
             }
             // If the player neither collided, nor the game hast started
             // the game is paused, so play idle
@@ -159,9 +174,10 @@ namespace Scripts
 
         private void ChangeAnimation(string animation)
         {
-            Debug.Log("Now changing animation to: " + animation);
-            //if (currentAnimation == animation) return;
-            
+
+            // return if the animation to be played is already playing
+            if (currentAnimation == animation) return;
+            //Debug.Log("Now changing animation to: " + animation);
             
             animator.Play(animation);
 
