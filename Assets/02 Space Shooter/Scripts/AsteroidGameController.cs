@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = System.Random;
+using System.Collections;
 
 namespace Scripts
 {
@@ -20,6 +21,8 @@ namespace Scripts
 
         private List<Asteroid> activeAsteroids;
         private Random random;
+
+        private bool onTimeOut;
 
         private void Start()
         {
@@ -84,6 +87,7 @@ namespace Scripts
         }
 
 
+
         /// <summary>
         /// Checks if a laser is intersecting with an asteroid and executes gameplay behaviour on that
         /// </summary>
@@ -135,16 +139,28 @@ namespace Scripts
             var asteroid = activeAsteroids
                 .FirstOrDefault(x => x.GetComponent<SpriteRenderer>().bounds.Intersects(ship.bounds));
             
-            Debug.Log("moiniii");
+            
             if (asteroid == null)
             {
                 // No asteroid is hitting the ship
                 return;
             }
-            
-            // Apply damage
-            //playerShip.calculateHealth(-5);
-            
+
+            if (onTimeOut)
+            {
+                return;
+            }
+
+            playerShip.takeDamage(1);
+            onTimeOut = true;
+            StartCoroutine(DamageTimeOut());
+        }
+
+        // Using a coroutine to timeout the damage on the ship, otherwise the hpo would decrease almost instantly due to the collision detection
+        IEnumerator DamageTimeOut()
+        {
+            yield return new WaitForSeconds(1);
+            onTimeOut = false;
         }
 
         private static float RandomPointOnLine(float min, float max)
