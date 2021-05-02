@@ -11,38 +11,51 @@ public class BreakoutManager : MonoBehaviour
     [SerializeField] public GameObject LevelOne;
     [SerializeField] public GameObject LevelTwo;
     private List<GameObject> bricks;
+    private string activeLevel;
 
     private void Start()
     {
         LevelTwo.SetActive(false);
-        Debug.Log(GameObject.FindGameObjectsWithTag("Brick").Length);
-        
-        
+        activeLevel = "LevelOne";
+
     }
 
     private void Update()
     {
-        Debug.Log(GameObject.FindGameObjectsWithTag("Brick").Length);
+        // Use the count of active bricks to determine if the level is completed
+        //Debug.Log(GameObject.FindGameObjectsWithTag("Brick").Length);
         if (GameObject.FindGameObjectsWithTag("Brick").Length <= 0)
         {
-            LoadLevel();
+            Win();
         }
     }
 
-    void GameOver()
+    public void GameOver()
     {
-        
+        Debug.Log("You lost !");
     }
 
     void Win()
     {
         //bricks = new List<GameObject>();
-        LoadLevel();
+        if (activeLevel == "LevelOne")
+        {
+            LoadLevel(LevelTwo);
+        }
+        
+        
+        Debug.Log("Game completed");
+        
     }
 
-    void LoadLevel()
+    void LoadLevel(GameObject Level)
     {
-        LevelTwo.SetActive(true);
-        LevelOne.SetActive(false);
+        // here th first level will get set to inactive and swapped out with the second level
+        //LevelTwo.SetActive(true);
+        //LevelOne.SetActive(false);
+        
+        Level.SetActive(true);
+        GameObject.Find(activeLevel).SetActive(false);
+        activeLevel = Level.name;
     }
 }

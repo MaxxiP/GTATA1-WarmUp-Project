@@ -13,6 +13,8 @@ namespace Scripts
         private bool hasStarted;
         public Rigidbody2D RigidBody { get; private set; }
 
+        
+
         private void FixedUpdate()
         {
             // sometimes odd angles cause the ball to decelerate, which is fixed by setting it to a fixed magnitude
@@ -48,6 +50,7 @@ namespace Scripts
             if (other.gameObject.layer == deathLayerId)
             {
                 Destroy(gameObject);
+                
             }
         }
     }

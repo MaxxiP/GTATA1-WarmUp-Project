@@ -21,6 +21,8 @@ namespace Scripts
         public int currentHealth;
         public bool gameReset;
 
+        // On start set the HP of the player to the specified max health value
+        //
         private void Start()
         {
             if (_runGameController == null) _runGameController = FindObjectOfType<AsteroidGameController>();
@@ -30,11 +32,7 @@ namespace Scripts
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                takeDamage(20);
-            }
-
+            // if gameReset is set to true, the health will be set back to the maximum
             if (gameReset)
             {
                 healthbar.SetHealth(maxHealth);
@@ -43,6 +41,7 @@ namespace Scripts
             }
         }
 
+        // calculate current health by applying damage, if health falls to or below zero the gameOver bool of the gamecontroller gets triggered to end the game
         public void takeDamage(int damage)
         {
             currentHealth -= damage;

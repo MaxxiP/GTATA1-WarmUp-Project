@@ -28,6 +28,7 @@ namespace Scripts
         /// </summary>
         private void OnEnable()
         {
+            
             collided = false;
             // we can try to unsubscribe first, avoiding double subscription by accident
             // unsubscription when not subscribed ends in doing nothing and doesn't break

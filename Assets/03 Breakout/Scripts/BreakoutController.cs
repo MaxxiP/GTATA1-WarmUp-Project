@@ -13,6 +13,8 @@ namespace Scripts
         private RectTransform rectTransform;
         private Rigidbody2D rigidBody;
         private int upgradeCollisionId;
+        
+        [SerializeField] private BreakoutManager breakoutManager;
 
 
         /// <summary>
@@ -44,7 +46,9 @@ namespace Scripts
             if (balls.Count == 0)
             {
                 // maybe this is a good entry point for a loss system, similarly no bricks -> win
-                Debug.Log("Game Over!");
+                //Debug.Log("Game Over!");
+                // Fire Lose function
+                breakoutManager.GameOver();
                 Time.timeScale = 0f;
             }
         }
@@ -77,7 +81,7 @@ namespace Scripts
                         break;
                     
                     // New Case of SlowBall
-                    // I will increase the currently active balls drag to 100f to slow them down
+                    // will increase the currently active balls drag to 100f to slow them down
                     case UpgradeType.SlowBall:
                         foreach (var singleBall in balls)
                         {

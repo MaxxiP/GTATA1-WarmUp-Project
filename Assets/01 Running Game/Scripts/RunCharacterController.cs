@@ -72,6 +72,7 @@ namespace Scripts
         /// </summary>
         private void Update()
         {
+            // determine animation and sound to be played by checking various game states
             // Start the walking animation if the game hasStarted is true
             if (gameManager.hasStarted && canJump)
             {
@@ -96,12 +97,12 @@ namespace Scripts
                 }
             }
             
-            // Iff collidied is true, the player died, play death anim
+            // If collidied is true, the player died, play death anim
             if (gameManager.collided)
             {
                 ChangeAnimation(DEATH);
                 
-                // logic not implemented yet
+                // logic not implemented correctly
                 /*
                 if (!audioSource.isPlaying)
                 {
@@ -172,12 +173,12 @@ namespace Scripts
             }
         }
 
+        // change the player animation according to given string
         private void ChangeAnimation(string animation)
         {
 
             // return if the animation to be played is already playing
             if (currentAnimation == animation) return;
-            //Debug.Log("Now changing animation to: " + animation);
             
             animator.Play(animation);
 

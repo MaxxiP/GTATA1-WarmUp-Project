@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-
+    // Reference the healthbar slider to set the maximum and current HP value
     public Slider slider;
 
     public void SetMaxHealth(int health)
