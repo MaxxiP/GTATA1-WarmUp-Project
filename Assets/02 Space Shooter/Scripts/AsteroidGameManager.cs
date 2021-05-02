@@ -22,14 +22,12 @@ public class AsteroidGameManager : MonoBehaviour
     }
     public void GameOver()
     {
-        Debug.Log("Game OVER !!!! press x to restart");
         loosingScreen.SetActive(true);
 
     }
 
     public void GameWon()
     {
-        Debug.Log("Game WON !!!! Press X to restart");
         winningScreen.SetActive(true);
     }
 
