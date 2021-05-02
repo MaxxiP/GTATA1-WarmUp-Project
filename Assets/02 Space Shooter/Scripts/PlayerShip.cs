@@ -31,7 +31,7 @@ namespace Scripts
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                takeDamage(10);
+                takeDamage(20);
             }
         }
 
@@ -39,6 +39,11 @@ namespace Scripts
         {
             currentHealth -= damage;
             healthbar.SetHealth(currentHealth);
+
+            if (currentHealth == 0)
+            {
+                FindObjectOfType<AsteroidGameManager>().GameOver();
+            }
         }
 
         private void LateUpdate()

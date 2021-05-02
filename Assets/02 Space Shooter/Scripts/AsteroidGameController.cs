@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -23,8 +24,40 @@ namespace Scripts
         private Random random;
 
         private bool onTimeOut;
+        private bool gameStarted;
 
         private void Start()
+        {
+            gameStarted = false;
+            /*
+            activeAsteroids = new List<Asteroid>();
+            random = new Random();
+            // spawn some initial asteroids
+            for (var i = 0; i < 5; i++)
+            {
+                SpawnAsteroid(bigAsteroids, Camera.main.OrthographicBounds());
+            }
+            */
+
+        }
+
+        public void Update()
+        {
+            if (!gameStarted && Input.GetKeyDown(KeyCode.X))
+            {
+                gameStarted = true;
+                FindObjectOfType<AsteroidGameManager>().GameStart();
+                StartGame();
+            }
+
+            if (gameStarted && (activeAsteroids.Count < 1))
+            {
+                gameStarted = false;
+                FindObjectOfType<AsteroidGameManager>().GameWon();
+            }
+        }
+
+        public void StartGame()
         {
             activeAsteroids = new List<Asteroid>();
             random = new Random();
@@ -93,6 +126,8 @@ namespace Scripts
         /// </summary>
         public void LaserIntersection(SpriteRenderer laser)
         {
+            if (!gameStarted) return;
+            
             // go through all asteroids, check if they intersect with a laser and stop after the first
             var asteroid = activeAsteroids
                 .FirstOrDefault(x => x.GetComponent<SpriteRenderer>().bounds.Intersects(laser.bounds));
@@ -134,6 +169,8 @@ namespace Scripts
 
         public void ShipIntersection(SpriteRenderer ship)
         {
+            if (!gameStarted) return;
+            
             // :thinking: this could be solved very similarly to a laser intersection
             // go through all asteroids, check if they intersect with a laser and stop after the first
             var asteroid = activeAsteroids
@@ -151,7 +188,7 @@ namespace Scripts
                 return;
             }
 
-            playerShip.takeDamage(1);
+            playerShip.takeDamage(10);
             onTimeOut = true;
             StartCoroutine(DamageTimeOut());
         }
