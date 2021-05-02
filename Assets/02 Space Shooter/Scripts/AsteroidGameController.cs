@@ -24,21 +24,13 @@ namespace Scripts
         private Random random;
 
         private bool onTimeOut;
-        private bool gameStarted;
+        public bool gameStarted;
+        public bool gameOver;
 
         private void Start()
         {
             gameStarted = false;
-            /*
-            activeAsteroids = new List<Asteroid>();
-            random = new Random();
-            // spawn some initial asteroids
-            for (var i = 0; i < 5; i++)
-            {
-                SpawnAsteroid(bigAsteroids, Camera.main.OrthographicBounds());
-            }
-            */
-
+            gameOver = false;
         }
 
         public void Update()
@@ -46,8 +38,11 @@ namespace Scripts
             if (!gameStarted && Input.GetKeyDown(KeyCode.X))
             {
                 gameStarted = true;
+                gameOver = false;
+                playerShip.gameReset = true;
                 FindObjectOfType<AsteroidGameManager>().GameStart();
                 StartGame();
+                
             }
 
             if (gameStarted && (activeAsteroids.Count < 1))
@@ -55,10 +50,27 @@ namespace Scripts
                 gameStarted = false;
                 FindObjectOfType<AsteroidGameManager>().GameWon();
             }
+
+            if (gameOver && gameStarted)
+            {
+                gameStarted = false;
+                FindObjectOfType<AsteroidGameManager>().GameOver();
+            }
         }
 
         public void StartGame()
         {
+            if (activeAsteroids != null)
+            {
+                //activeAsteroids.Clear();
+                // clear the current astroid array to create new ones on reset
+                // System.Array.Clear(activeAsteroids,0,activeAsteroids.Count);
+                foreach (var asteroid in activeAsteroids)
+                {
+                    Destroy(asteroid.gameObject);
+                }
+                activeAsteroids.Clear();
+            }
             activeAsteroids = new List<Asteroid>();
             random = new Random();
             // spawn some initial asteroids

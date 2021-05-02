@@ -19,6 +19,7 @@ namespace Scripts
 
         public int maxHealth = 100;
         public int currentHealth;
+        public bool gameReset;
 
         private void Start()
         {
@@ -33,6 +34,13 @@ namespace Scripts
             {
                 takeDamage(20);
             }
+
+            if (gameReset)
+            {
+                healthbar.SetHealth(maxHealth);
+                currentHealth = maxHealth;
+                gameReset = false;
+            }
         }
 
         public void takeDamage(int damage)
@@ -40,9 +48,9 @@ namespace Scripts
             currentHealth -= damage;
             healthbar.SetHealth(currentHealth);
 
-            if (currentHealth == 0)
+            if (currentHealth <= 0)
             {
-                FindObjectOfType<AsteroidGameManager>().GameOver();
+                _runGameController.gameOver = true;
             }
         }
 
@@ -51,10 +59,5 @@ namespace Scripts
             _runGameController.ShipIntersection(shipSprite);
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            Debug.Log(collision);
-            Debug.Log("I hit smth");
-        }
     }
 }

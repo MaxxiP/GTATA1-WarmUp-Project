@@ -11,6 +11,8 @@ namespace Scripts
         [SerializeField] [Range(0, 10)] private float rotationSpeed;
         private MovementObject playerShip;
 
+        [SerializeField] public AsteroidGameController gameController;
+
         private void Start()
         {
             transform.rotation = Quaternion.Euler(0, 0, Random.value * 360);
@@ -19,6 +21,13 @@ namespace Scripts
 
         private void Update()
         {
+            if (!gameController.gameStarted)
+            {
+                playerShip.Impulse(Vector3.zero,Vector3.zero);
+                playerShip.Add(Vector3.zero,Vector3.zero);
+                return;
+            }
+            
             // clockwise rotation is negative euler z rotation, anti-clockwise is positive
             var rotation = 0f;
             if (Input.GetKey(KeyCode.D)) rotation += 1f;

@@ -246,6 +246,8 @@ MonoBehaviour:
   maximumSpin: {x: 0, y: 0, z: 2}
   playerShip: {fileID: 1493469882}
   spawnAnchor: {fileID: 889429083}
+  gameStarted: 0
+  gameOver: 0
 --- !u!4 &207606994
 Transform:
   m_ObjectHideFlags: 0
@@ -1298,6 +1300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3.96
   rotationSpeed: 1.64
+  gameController: {fileID: 207606993}
 --- !u!212 &1493469879
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1398,6 +1401,7 @@ MonoBehaviour:
   shipSprite: {fileID: 1493469879}
   maxHealth: 100
   currentHealth: 0
+  gameReset: 0
 --- !u!114 &1493469883
 MonoBehaviour:
   m_ObjectHideFlags: 0
